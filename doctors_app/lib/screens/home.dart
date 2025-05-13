@@ -11,9 +11,9 @@ class Home extends StatelessWidget {
       'route': '/consultas',
     },
     {
-      'title': 'Médicos',
+      'title': 'Profissionais',
       'icon': Icons.local_hospital,
-      'route': '/medicos',
+      'route': '/profissionais',
     },
     {
       'title': 'Especialidades',

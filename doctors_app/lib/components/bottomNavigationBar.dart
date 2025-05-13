@@ -1,4 +1,5 @@
 import 'package:doctors_app/main.dart';
+import 'package:doctors_app/screens/consultas.dart';
 import 'package:doctors_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> _pages = [
     Home(),
-    Center(child: Text('Consultas')),
+    Consultas(),
     Center(child: Text('Perfil')),
   ];
 
