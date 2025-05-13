@@ -1,4 +1,6 @@
+import 'package:doctors_app/components/card_user.dart';
 import 'package:doctors_app/components/grid.dart';
+import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -59,33 +61,43 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
+      body: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.all(16.0),
-            
+            height: 200,
+            color: customPurple,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1,
+
+          // Conteúdo sobreposto
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                SizedBox(height: 32),
+
+                CardUser(title: 'Augusto De C. Zanoli', route: '', data: '08/08/2004',),
+
+                // Minha grid
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      final item = cardsData[index];
+                      return GridCard(
+                        title: item['title'],
+                        icon: item['icon'],
+                        route: item['title'],
+                      );
+                    },
+                  ),
                 ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  final item = cardsData[index];
-                  return GridCard(
-                    title: item['title'],
-                    icon: item['icon'],
-                    route: item['title'],
-                  );
-                },
-              ),
+              ],
             ),
           ),
         ],
