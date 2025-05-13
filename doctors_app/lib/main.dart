@@ -1,5 +1,5 @@
+import 'package:doctors_app/components/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
-import 'screens/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,13 +16,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.teal,
         appBarTheme: AppBarTheme(color: customPurple)
       ),
-      home: Home(),
+      home: MainLayout(),
     );
   }
 }
 
 MaterialColor customPurple = const MaterialColor(
-  0xFF6B0096, // valor principal
+  0xFF6B0096,
   <int, Color>{
     50: Color(0xFFEBDCF2),
     100: Color(0xFFD6B9E5),
