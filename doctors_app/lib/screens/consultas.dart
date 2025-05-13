@@ -3,80 +3,48 @@ import 'package:doctors_app/components/consultas/cardConsultas.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
-class Consultas extends StatelessWidget {
+class Consultas extends StatefulWidget {
   const Consultas({super.key});
+
+  @override
+  State<Consultas> createState() => _ConsultasState();
+}
+
+class _ConsultasState extends State<Consultas> {
+  List<Map<String, dynamic>> cardsData = [
+    {
+      'title': 'Pediatra',
+      'route': '/consultas',
+      'medico': 'Antonio Marcos',
+      'data': '13/05/2025',
+      'status': 'Pendente',
+    },
+  ];
+
+  void _adicionarConsulta(Map<String, dynamic> novaConsulta) {
+    setState(() {
+      cardsData.insert(0, novaConsulta); // adiciona no topo
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> cardsData = [
-      {
-        'title': 'Pediatra',
-        'route': '/consultas',
-        'medico': 'Antonio Marcos',
-        'data': '13/05/2025',
-        'status': 'Pendente',
-      },
-      {
-        'title': 'Pediatra',
-        'route': '/consultas',
-        'medico': 'Antonio Marcos',
-        'data': '01/05/2025',
-        'status': 'Cancelada',
-      },
-      {
-        'title': 'Dentista',
-        'route': '/consultas',
-        'medico': 'Adriano Oliveira',
-        'data': '24/03/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Consulta',
-        'route': '/consultas',
-        'medico': 'Ana Beatriz Silva',
-        'data': '06/03/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Consulta',
-        'route': '/consultas',
-        'medico': 'Ana Beatriz Silva',
-        'data': '14/02/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Oftamologista',
-        'route': '/consultas',
-        'medico': 'Mariana Pereira',
-        'data': '01/02/2025',
-        'status': 'Concluída',
-      },
-    ];
-
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: 200,
-            color: customPurple,
-          ),
-
-          // Conteúdo sobreposto
+          Container(height: 200, color: customPurple),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 SizedBox(height: 32),
-
                 CardUser(
                   title: 'Augusto De C. Zanoli',
                   route: '',
                   data: '08/08/2004',
                 ),
-
-                // Minha grid
                 Expanded(
                   child: ListView.builder(
-                    
                     itemCount: cardsData.length,
                     itemBuilder: (context, index) {
                       final item = cardsData[index];
@@ -85,7 +53,7 @@ class Consultas extends StatelessWidget {
                         route: item['route'],
                         medico: item['medico'],
                         data: item['data'],
-                        status: item['status'], 
+                        status: item['status'],
                       );
                     },
                   ),
@@ -96,13 +64,16 @@ class Consultas extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: customPurple[400],
-          tooltip: 'Increment',
-          onPressed: (){
-            Navigator.pushNamed(context, '/novaconsulta');
-          },
-          child: const Icon(Icons.add, color: Colors.white, size: 28),
-          ),
+        backgroundColor: customPurple[400],
+        tooltip: 'Nova Consulta',
+        onPressed: () async {
+          final novaConsulta = await Navigator.pushNamed(context, '/novaconsulta');
+          if (novaConsulta != null && novaConsulta is Map<String, dynamic>) {
+            _adicionarConsulta(novaConsulta);
+          }
+        },
+        child: const Icon(Icons.add, color: Colors.white, size: 28),
+      ),
     );
   }
 }
