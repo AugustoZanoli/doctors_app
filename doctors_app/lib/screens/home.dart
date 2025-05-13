@@ -1,5 +1,5 @@
-import 'package:doctors_app/components/card_user.dart';
-import 'package:doctors_app/components/grid.dart';
+import 'package:doctors_app/components/cardUser.dart';
+import 'package:doctors_app/components/grid/grid.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
                       return GridCard(
                         title: item['title'],
                         icon: item['icon'],
-                        route: item['title'],
+                        route: item['route'],
                       );
                     },
                   ),

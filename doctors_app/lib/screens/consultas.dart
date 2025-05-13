@@ -1,5 +1,5 @@
-import 'package:doctors_app/components/card_user.dart';
-import 'package:doctors_app/components/consultas/card_consultas.dart';
+import 'package:doctors_app/components/cardUser.dart';
+import 'package:doctors_app/components/consultas/cardConsultas.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +98,9 @@ class Consultas extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           backgroundColor: customPurple[400],
           tooltip: 'Increment',
-          onPressed: (){},
+          onPressed: (){
+            Navigator.pushNamed(context, '/novaconsulta');
+          },
           child: const Icon(Icons.add, color: Colors.white, size: 28),
           ),
     );

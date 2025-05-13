@@ -12,7 +12,7 @@ class GridCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, route);
+        Navigator.pushNamed(context, route);
       },
       child: Card(
         elevation: 5,

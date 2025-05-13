@@ -1,4 +1,6 @@
 import 'package:doctors_app/components/bottomNavigationBar.dart';
+import 'package:doctors_app/screens/consultas.dart';
+import 'package:doctors_app/screens/novaConsulta.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,15 +11,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Consulta Médica',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: customPurple,
-        primaryColor: Colors.teal,
-        appBarTheme: AppBarTheme(color: customPurple)
-      ),
-      home: MainLayout(),
-    );
+        title: 'Consulta Médica',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            primarySwatch: customPurple,
+            primaryColor: Colors.teal,
+            appBarTheme: AppBarTheme(color: customPurple)),
+        home: MainLayout(),
+        routes: {
+          '/consultas': (context) => Consultas(),
+          '/novaconsulta': (context) => Novaconsulta(),
+        });
   }
 }
 
