@@ -30,6 +30,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -63,9 +64,15 @@ class Home extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 200,
-            color: customPurple,
+           Container(
+            height: 180,
+            decoration: BoxDecoration(
+              color: customTeal,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
           ),
 
           // Conteúdo sobreposto

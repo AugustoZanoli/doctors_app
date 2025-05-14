@@ -29,7 +29,7 @@ class _MainLayoutState extends State<MainLayout> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        selectedItemColor: customPurple,
+        selectedItemColor: customTeal,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
         items: const [

@@ -21,7 +21,7 @@ class GridCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icon, size: 50, color: customPurple),
+            Icon(icon, size: 50, color: customTeal),
             SizedBox(height: 10),
             Text(
               title,
