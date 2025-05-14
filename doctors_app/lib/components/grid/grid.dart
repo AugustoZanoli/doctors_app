@@ -12,7 +12,7 @@ class GridCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, route);
+        Navigator.pushNamed(context, route);
       },
       child: Card(
         elevation: 5,
@@ -21,7 +21,7 @@ class GridCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icon, size: 50, color: customPurple),
+            Icon(icon, size: 50, color: customTeal),
             SizedBox(height: 10),
             Text(
               title,

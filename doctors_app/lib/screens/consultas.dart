@@ -1,106 +1,168 @@
-import 'package:doctors_app/components/card_user.dart';
-import 'package:doctors_app/components/consultas/card_consultas.dart';
+import 'package:doctors_app/components/consultas/cardConsultas.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
-class Consultas extends StatelessWidget {
+class Consultas extends StatefulWidget {
   const Consultas({super.key});
+
+  @override
+  State<Consultas> createState() => _ConsultasState();
+}
+
+class _ConsultasState extends State<Consultas> {
+  List<Map<String, dynamic>> cardsData = [
+    {
+      'title': 'Pediatra',
+      'route': '/consultas',
+      'medico': 'Antonio Marcos',
+      'data': '28/05/2025',
+      'status': 'Pendente',
+    },
+    {
+      'title': 'Cardiologista',
+      'route': '/consultas',
+      'medico': 'Joana Lima',
+      'data': '02/05/2025',
+      'status': 'Finalizado',
+    },
+  ];
+
+  int _selectedFilterIndex = 0; // 0 = Pendentes, 1 = Finalizados
+
+  void _adicionarConsulta(Map<String, dynamic> novaConsulta) {
+    setState(() {
+      cardsData.insert(0, novaConsulta);
+    });
+  }
+
+  List<Map<String, dynamic>> _filtrarConsultas() {
+    if (_selectedFilterIndex == 0) {
+      return cardsData.where((c) => c['status'] == 'Pendente').toList();
+    } else {
+      return cardsData.where((c) => c['status'] == 'Finalizado').toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> cardsData = [
-      {
-        'title': 'Pediatra',
-        'route': '/consultas',
-        'medico': 'Antonio Marcos',
-        'data': '13/05/2025',
-        'status': 'Pendente',
-      },
-      {
-        'title': 'Pediatra',
-        'route': '/consultas',
-        'medico': 'Antonio Marcos',
-        'data': '01/05/2025',
-        'status': 'Cancelada',
-      },
-      {
-        'title': 'Dentista',
-        'route': '/consultas',
-        'medico': 'Adriano Oliveira',
-        'data': '24/03/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Consulta',
-        'route': '/consultas',
-        'medico': 'Ana Beatriz Silva',
-        'data': '06/03/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Consulta',
-        'route': '/consultas',
-        'medico': 'Ana Beatriz Silva',
-        'data': '14/02/2025',
-        'status': 'Concluída',
-      },
-      {
-        'title': 'Oftamologista',
-        'route': '/consultas',
-        'medico': 'Mariana Pereira',
-        'data': '01/02/2025',
-        'status': 'Concluída',
-      },
-    ];
+    final consultasFiltradas = _filtrarConsultas();
 
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
           Container(
-            height: 200,
-            color: customPurple,
+            height: 180,
+            decoration: BoxDecoration(
+              color: customTeal,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
           ),
-
-          // Conteúdo sobreposto
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                SizedBox(height: 32),
-
-                CardUser(
-                  title: 'Augusto De C. Zanoli',
-                  route: '',
-                  data: '08/08/2004',
-                ),
-
-                // Minha grid
-                Expanded(
-                  child: ListView.builder(
-                    
-                    itemCount: cardsData.length,
-                    itemBuilder: (context, index) {
-                      final item = cardsData[index];
-                      return CardConsultas(
-                        title: item['title'],
-                        route: item['route'],
-                        medico: item['medico'],
-                        data: item['data'],
-                        status: item['status'], 
-                      );
-                    },
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 32),
+                  Text(
+                    'Minhas Consultas',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 12),
+                  ToggleButtons(
+                    isSelected: [
+                      _selectedFilterIndex == 0,
+                      _selectedFilterIndex == 1
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                    selectedColor: customTeal,
+                    color: Colors.white,
+                    fillColor: Colors.white,
+                    textStyle: TextStyle(fontSize: 16),
+                    onPressed: (index) {
+                      setState(() {
+                        _selectedFilterIndex = index;
+                      });
+                    },
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Pendentes'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Finalizadas'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 600),
+                        child: consultasFiltradas.isEmpty
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.calendar_today,
+                                        size: 60,
+                                        color: Colors.grey.shade400),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      'Nenhuma consulta encontrada',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                padding: EdgeInsets.only(bottom: 80),
+                                itemCount: consultasFiltradas.length,
+                                itemBuilder: (context, index) {
+                                  final item = consultasFiltradas[index];
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: CardConsultas(
+                                      title: item['title'],
+                                      route: item['route'],
+                                      medico: item['medico'],
+                                      data: item['data'],
+                                      status: item['status'],
+                                    ),
+                                  );
+                                },
+                              ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: customPurple[400],
-          tooltip: 'Increment',
-          onPressed: (){},
-          child: const Icon(Icons.add, color: Colors.white, size: 28),
-          ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: customTeal,
+        icon: Icon(Icons.add, color: Colors.white),
+        label: Text('Nova Consulta', style: TextStyle(color: Colors.white)),
+        onPressed: () async {
+          final novaConsulta =
+              await Navigator.pushNamed(context, '/novaconsulta');
+          if (novaConsulta != null && novaConsulta is Map<String, dynamic>) {
+            _adicionarConsulta(novaConsulta);
+          }
+        },
+      ),
     );
   }
 }

@@ -1,4 +1,7 @@
 import 'package:doctors_app/components/bottomNavigationBar.dart';
+import 'package:doctors_app/screens/consultas.dart';
+import 'package:doctors_app/screens/login/login.dart';
+import 'package:doctors_app/screens/novaConsulta.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,30 +12,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Consulta Médica',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: customPurple,
-        primaryColor: Colors.teal,
-        appBarTheme: AppBarTheme(color: customPurple)
-      ),
-      home: MainLayout(),
-    );
+        title: 'Consulta Médica',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            primarySwatch: customTeal,
+            primaryColor: customTeal,
+            appBarTheme: AppBarTheme(color: customTeal)),
+        home: LoginPage(),
+        routes: {
+          '/consultas': (context) => Consultas(),
+          '/novaconsulta': (context) => Novaconsulta(),
+          '/home': (context) => MainLayout(),
+        });
   }
 }
 
-MaterialColor customPurple = const MaterialColor(
-  0xFF6B0096,
+MaterialColor customTeal = const MaterialColor(
+  0xFF009688, 
   <int, Color>{
-    50: Color(0xFFEBDCF2),
-    100: Color(0xFFD6B9E5),
-    200: Color(0xFFC093D7),
-    300: Color(0xFFAA6DC9),
-    400: Color(0xFF984DC0),
-    500: Color(0xFF6B0096), // cor base
-    600: Color(0xFF600087),
-    700: Color(0xFF550078),
-    800: Color(0xFF4A0069),
-    900: Color(0xFF38004C),
+    50: Color(0xFFE0F2F1),
+    100: Color(0xFFB2DFDB),
+    200: Color(0xFF80CBC4),
+    300: Color(0xFF4DB6AC),
+    400: Color(0xFF26A69A),
+    500: Color(0xFF009688),
+    600: Color(0xFF00897B),
+    700: Color(0xFF00796B),
+    800: Color(0xFF00695C),
+    900: Color(0xFF004D40),
   },
 );
+

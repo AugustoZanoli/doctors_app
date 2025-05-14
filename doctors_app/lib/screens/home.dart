@@ -1,5 +1,5 @@
-import 'package:doctors_app/components/card_user.dart';
-import 'package:doctors_app/components/grid.dart';
+import 'package:doctors_app/components/cardUser.dart';
+import 'package:doctors_app/components/grid/grid.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +30,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -63,9 +64,15 @@ class Home extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 200,
-            color: customPurple,
+           Container(
+            height: 180,
+            decoration: BoxDecoration(
+              color: customTeal,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
           ),
 
           // Conteúdo sobreposto
@@ -92,7 +99,7 @@ class Home extends StatelessWidget {
                       return GridCard(
                         title: item['title'],
                         icon: item['icon'],
-                        route: item['title'],
+                        route: item['route'],
                       );
                     },
                   ),
