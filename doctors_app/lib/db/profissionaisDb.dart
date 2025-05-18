@@ -13,7 +13,7 @@ List<Map<String, dynamic>> profissionais = [
     },
     {
       'nome': 'Pedro Henrique Zanoli',
-      'area': 'Pediatraa',
+      'area': 'Pediatra',
       'regiao': 'Itajubá',
       'foto': 'assets/medico3.jpeg',
     },

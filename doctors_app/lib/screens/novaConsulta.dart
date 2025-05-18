@@ -1,4 +1,5 @@
 import 'package:doctors_app/components/appBar.dart';
+import 'package:doctors_app/db/profissionaisDb.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,8 @@ class Novaconsulta extends StatefulWidget {
 
 class _NovaconsultaState extends State<Novaconsulta> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _medicoController = TextEditingController();
+  String? _medicoSelecionado;
+  String? _area;
   final TextEditingController _dataController = TextEditingController();
   final TextEditingController _especialidadeController =
       TextEditingController();
@@ -20,7 +22,9 @@ class _NovaconsultaState extends State<Novaconsulta> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: MyAppBar(title: 'Marcar Consulta',),
+      appBar: MyAppBar(
+        title: 'Marcar Consulta',
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -40,16 +44,33 @@ class _NovaconsultaState extends State<Novaconsulta> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 24),
-                    TextFormField(
-                      controller: _medicoController,
+                    DropdownButtonFormField<String>(
+                      value: _medicoSelecionado,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Nome do Médico',
-                        hintText: 'Nome do Médico',
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
                       ),
+                      hint: Text('Selecione o médico'),
+                      items: profissionais.map((prof) {
+                        return DropdownMenuItem<String>(
+                          value: prof['nome'],
+                          child: Text(prof['nome']),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _medicoSelecionado = value;
+                          final profissionalSelecionado =
+                              profissionais.firstWhere(
+                            (prof) => prof['nome'] == value,
+                            orElse: () => {'area': ''},
+                          );
+                          _especialidadeController.text =
+                              profissionalSelecionado['area'] ?? '';
+                        });
+                      },
                       validator: (value) => value == null || value.isEmpty
-                          ? 'Informe o nome do médico'
+                          ? 'Selecione um médico'
                           : null,
                     ),
                     SizedBox(height: 12),
@@ -60,7 +81,6 @@ class _NovaconsultaState extends State<Novaconsulta> {
                         border: OutlineInputBorder(),
                         labelText: 'Data da Consulta',
                         hintText: 'XX/XX/XXXX',
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
                       ),
                       validator: (value) => value == null || value.isEmpty
                           ? 'Informe a data'
@@ -68,12 +88,13 @@ class _NovaconsultaState extends State<Novaconsulta> {
                     ),
                     SizedBox(height: 12),
                     TextFormField(
+                      readOnly: true,
                       controller: _especialidadeController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Especialidade',
-                        hintText: 'Ex: Pediatra',
-                        hintStyle: TextStyle(fontWeight: FontWeight.w300),
+                        hintText: 'Selecione o médico',
+                        
                       ),
                       validator: (value) => value == null || value.isEmpty
                           ? 'Informe a especialidade'
@@ -84,19 +105,21 @@ class _NovaconsultaState extends State<Novaconsulta> {
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.add, color: Colors.white),
-                        label: Text('Adicionar consulta', style: TextStyle(color: Colors.white),),
+                        label: Text(
+                          'Adicionar consulta',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: customTeal,
                           padding: EdgeInsets.symmetric(vertical: 14),
                           textStyle: TextStyle(fontSize: 16),
-                          
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             final novaConsulta = {
                               'title': _especialidadeController.text,
                               'route': '/consultas',
-                              'medico': _medicoController.text,
+                              'medico': _medicoSelecionado,
                               'data': _dataController.text,
                               'status': 'Pendente',
                             };
