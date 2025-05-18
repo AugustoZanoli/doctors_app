@@ -13,7 +13,6 @@ class Novaconsulta extends StatefulWidget {
 class _NovaconsultaState extends State<Novaconsulta> {
   final _formKey = GlobalKey<FormState>();
   String? _medicoSelecionado;
-  String? _area;
   final TextEditingController _dataController = TextEditingController();
   final TextEditingController _especialidadeController =
       TextEditingController();
@@ -80,7 +79,7 @@ class _NovaconsultaState extends State<Novaconsulta> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Data da Consulta',
-                        hintText: 'XX/XX/XXXX',
+                        hintText: 'XX-XX-XXXX',
                       ),
                       validator: (value) => value == null || value.isEmpty
                           ? 'Informe a data'
