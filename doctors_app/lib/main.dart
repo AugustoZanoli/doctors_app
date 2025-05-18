@@ -2,6 +2,7 @@ import 'package:doctors_app/components/bottomNavigationBar.dart';
 import 'package:doctors_app/screens/consultas.dart';
 import 'package:doctors_app/screens/login/login.dart';
 import 'package:doctors_app/screens/novaConsulta.dart';
+import 'package:doctors_app/screens/profissionais.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,6 +10,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,6 +26,7 @@ class MyApp extends StatelessWidget {
           '/consultas': (context) => Consultas(),
           '/novaconsulta': (context) => Novaconsulta(),
           '/home': (context) => MainLayout(),
+          '/profissionais': (context) => Profissionais(),
         });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:doctors_app/components/consultas/cardConsultas.dart';
+import 'package:doctors_app/db/consultasDb.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -10,22 +11,7 @@ class Consultas extends StatefulWidget {
 }
 
 class _ConsultasState extends State<Consultas> {
-  List<Map<String, dynamic>> cardsData = [
-    {
-      'title': 'Pediatra',
-      'route': '/consultas',
-      'medico': 'Antonio Marcos',
-      'data': '28/05/2025',
-      'status': 'Pendente',
-    },
-    {
-      'title': 'Cardiologista',
-      'route': '/consultas',
-      'medico': 'Joana Lima',
-      'data': '02/05/2025',
-      'status': 'Finalizado',
-    },
-  ];
+  
 
   int _selectedFilterIndex = 0; // 0 = Pendentes, 1 = Finalizados
 

@@ -22,12 +22,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           ClipPath(
             clipper: WaveClipper(),
-            child: Container(
-              height: 500,
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-              ),
-            ),
+            child: Image.asset('assets/person.jpg'),
           ),
           Center(
             child: Padding(
@@ -42,11 +37,11 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.local_hospital_rounded,
-                              size: 80, color: customTeal),
-                              Text('Saúde +', style: TextStyle(color: customTeal, fontSize: 30, fontWeight: FontWeight.bold),),
+                              size: 80, color: Colors.white,),
+                              Text('Saúde +', style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),),
                         ],
                       ),
-                      Text('Sua saúde em um só lugar', style: TextStyle(color: customTeal, fontSize: 20, fontWeight: FontWeight.bold),),
+                      
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -187,7 +182,7 @@ class WaveClipper extends CustomClipper<Path> {
 
     path.lineTo(0, size.height * 0.7);
 
-    var firstControlPoint = Offset(size.width * 0.25, size.height);
+    var firstControlPoint = Offset(size.width * 0.25, size.height );
     var firstEndPoint = Offset(size.width * 0.5, size.height * 0.8);
 
     var secondControlPoint = Offset(size.width * 0.75, size.height * 0.6);
