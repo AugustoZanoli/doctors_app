@@ -1,3 +1,4 @@
+import 'package:doctors_app/components/appBar.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -19,11 +20,7 @@ class _NovaconsultaState extends State<Novaconsulta> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text('Marcar Consulta',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-      ),
+      appBar: MyAppBar(title: 'Marcar Consulta',),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
