@@ -1,6 +1,7 @@
 import 'package:doctors_app/db/consultasDb.dart';
 import 'package:doctors_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:doctors_app/db/session.dart' as session;
 
 class Perfil extends StatefulWidget {
   const Perfil({super.key});
@@ -13,6 +14,8 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     int pendentes = cardsData.where((c) => c['status'] == 'Pendente').length;
+    final user = session.loggedUser!;
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
@@ -48,7 +51,7 @@ class _PerfilState extends State<Perfil> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Augusto De C. Zanoli',
+                              user?.name ?? 'Usuário',
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -87,16 +90,16 @@ class _PerfilState extends State<Perfil> {
             ),
             const SizedBox(height: 24),
             _buildSectionTitle('Informações Pessoais'),
-            _buildInfoTile(Icons.email, 'augusto.zanoli@email.com'),
-            _buildInfoTile(Icons.phone, '(35) 99999-8888'),
-            _buildInfoTile(Icons.cake, '08/08/2004'),
-            _buildInfoTile(Icons.location_city, 'Divinópolis - MG'),
+            _buildInfoTile(Icons.email, user?.email ?? ''),
+            _buildInfoTile(Icons.phone, user?.phone ?? ''),
+            _buildInfoTile(Icons.cake, user?.birthDate ?? ''),
+            _buildInfoTile(Icons.location_city, user?.city ?? ''),
             const SizedBox(height: 24),
             _buildSectionTitle('Sobre mim'),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
-                'Sou apaixonado por tecnologia e saúde. Uso o aplicativo para acompanhar minhas consultas com praticidade.',
+                user.about,
                 style: TextStyle(fontSize: 15),
               ),
             ),

@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
       ),
       body: Stack(
         children: [
-           Container(
+          Container(
             height: 180,
             decoration: BoxDecoration(
               color: customTeal,
@@ -82,7 +82,7 @@ class Home extends StatelessWidget {
               children: [
                 SizedBox(height: 32),
 
-                CardUser(title: 'Augusto De C. Zanoli', route: '', data: '08/08/2004',),
+                CardUser(),
 
                 // Minha grid
                 Expanded(

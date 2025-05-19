@@ -5,6 +5,9 @@ class Cardprofissionais extends StatelessWidget {
   final String area;
   final String regiao;
   final String foto;
+  final double avaliacao;
+  final List<String> descavaliacao;
+  final String descricao;
 
   const Cardprofissionais({
     super.key,
@@ -12,13 +15,24 @@ class Cardprofissionais extends StatelessWidget {
     required this.area,
     required this.regiao,
     required this.foto,
+    required this.avaliacao,
+    required this.descavaliacao,
+    required this.descricao,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, route);
+        Navigator.pushNamed(context, '/profissionalDetails', arguments: {
+          'nome': nome,
+          'area': area,
+          'regiao': regiao,
+          'foto': foto,
+          'avaliacao': avaliacao,
+          'descricao': descricao,
+          'descavaliacao': descavaliacao,
+        });
       },
       child: Card(
         elevation: 4,
@@ -68,6 +82,17 @@ class Cardprofissionais extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
+                  ),
+                  Row(
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        index < avaliacao.floor()
+                            ? Icons.star
+                            : Icons.star_border,
+                        size: 16,
+                        color: Colors.orange,
+                      );
+                    }),
                   ),
                 ],
               ),
