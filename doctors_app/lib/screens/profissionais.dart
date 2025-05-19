@@ -30,32 +30,34 @@ class _ProfissionaisState extends State<Profissionais> {
       context: context,
       builder: (context) {
         return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: Icon(Icons.clear),
-                title: Text('Remover filtro'),
-                onTap: () {
-                  setState(() {
-                    filtroArea = null;
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              Divider(),
-              ...areas.map((area) {
-                return ListTile(
-                  title: Text(area),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: Icon(Icons.clear),
+                  title: Text('Remover filtro'),
                   onTap: () {
                     setState(() {
-                      filtroArea = area;
+                      filtroArea = null;
                     });
                     Navigator.pop(context);
                   },
-                );
-              }).toList(),
-            ],
+                ),
+                Divider(),
+                ...areas.map((area) {
+                  return ListTile(
+                    title: Text(area),
+                    onTap: () {
+                      setState(() {
+                        filtroArea = area;
+                      });
+                      Navigator.pop(context);
+                    },
+                  );
+                }),
+              ],
+            ),
           ),
         );
       },

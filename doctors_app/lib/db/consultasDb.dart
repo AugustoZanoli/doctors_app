@@ -1,15 +1,15 @@
 List<Map<String, dynamic>> cardsData = [
     {
-      'title': 'Pediatra',
+      'title': 'Dentista Cirurgião',
       'route': '/consultas',
-      'medico': 'Antonio Marcos',
+      'medico': 'Adriano Oliveira Zanoli',
       'data': '28/05/2025',
       'status': 'Pendente',
     },
     {
-      'title': 'Cardiologista',
+      'title': 'Oftamologista',
       'route': '/consultas',
-      'medico': 'Joana Lima',
+      'medico': 'Marcia Aparecida',
       'data': '02/05/2025',
       'status': 'Finalizado',
     },

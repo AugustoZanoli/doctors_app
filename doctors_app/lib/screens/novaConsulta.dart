@@ -24,111 +24,130 @@ class _NovaconsultaState extends State<Novaconsulta> {
       appBar: MyAppBar(
         title: 'Marcar Consulta',
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 400),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Icon(Icons.calendar_today, size: 64, color: customTeal),
-                    SizedBox(height: 12),
-                    Text(
-                      'Preencha os dados da nova consulta',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 400),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  
+                  
+                  SizedBox(height: 16),
+                  Text(
+                    'Preencha os dados da nova consulta',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 24),
+                  DropdownButtonFormField<String>(
+                    value: _medicoSelecionado,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome do Médico',
                     ),
-                    SizedBox(height: 24),
-                    DropdownButtonFormField<String>(
-                      value: _medicoSelecionado,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nome do Médico',
-                      ),
-                      hint: Text('Selecione o médico'),
-                      items: profissionais.map((prof) {
-                        return DropdownMenuItem<String>(
-                          value: prof['nome'],
-                          child: Text(prof['nome']),
+                    hint: Text('Selecione o médico'),
+                    items: profissionais.map((prof) {
+                      return DropdownMenuItem<String>(
+                        value: prof['nome'],
+                        child: Text(prof['nome']),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _medicoSelecionado = value;
+                        final profissionalSelecionado =
+                            profissionais.firstWhere(
+                          (prof) => prof['nome'] == value,
+                          orElse: () => {'area': ''},
                         );
-                      }).toList(),
-                      onChanged: (value) {
+                        _especialidadeController.text =
+                            profissionalSelecionado['area'] ?? '';
+                      });
+                    },
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Selecione um médico'
+                        : null,
+                  ),
+                  
+                  SizedBox(height: 16),
+                  TextFormField(
+                    readOnly: true,
+                    controller: _dataController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Data da Consulta',
+                      hintText: 'Selecionar data',
+                      suffixIcon: Icon(Icons.calendar_today),
+                    ),
+                    onTap: () async {
+                      final DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(Duration(days: 365)),
+                      );
+                      if (picked != null) {
                         setState(() {
-                          _medicoSelecionado = value;
-                          final profissionalSelecionado =
-                              profissionais.firstWhere(
-                            (prof) => prof['nome'] == value,
-                            orElse: () => {'area': ''},
-                          );
-                          _especialidadeController.text =
-                              profissionalSelecionado['area'] ?? '';
+                          _dataController.text =
+                              '${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}';
                         });
+                      }
+                    },
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Informe a data'
+                        : null,
+                  ),
+                  
+                  SizedBox(height: 16),
+                  TextFormField(
+                    readOnly: true,
+                    controller: _especialidadeController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(),
+                      labelText: 'Especialidade',
+                    ),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Informe a especialidade'
+                        : null,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.add, color: Colors.white),
+                      label: Text(
+                        'Adicionar consulta',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: customTeal,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          final novaConsulta = {
+                            'title': _especialidadeController.text,
+                            'route': '/consultas',
+                            'medico': _medicoSelecionado,
+                            'data': _dataController.text,
+                            'status': 'Pendente',
+                          };
+                          Navigator.pop(context, novaConsulta);
+                        }
                       },
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Selecione um médico'
-                          : null,
                     ),
-                    SizedBox(height: 12),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: _dataController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Data da Consulta',
-                        hintText: 'XX-XX-XXXX',
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Informe a data'
-                          : null,
-                    ),
-                    SizedBox(height: 12),
-                    TextFormField(
-                      readOnly: true,
-                      controller: _especialidadeController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Especialidade',
-                        hintText: 'Selecione o médico',
-                        
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Informe a especialidade'
-                          : null,
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.add, color: Colors.white),
-                        label: Text(
-                          'Adicionar consulta',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: customTeal,
-                          padding: EdgeInsets.symmetric(vertical: 14),
-                          textStyle: TextStyle(fontSize: 16),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final novaConsulta = {
-                              'title': _especialidadeController.text,
-                              'route': '/consultas',
-                              'medico': _medicoSelecionado,
-                              'data': _dataController.text,
-                              'status': 'Pendente',
-                            };
-                            Navigator.pop(context, novaConsulta);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

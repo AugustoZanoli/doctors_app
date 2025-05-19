@@ -59,6 +59,7 @@ flutter:
     - assets/medico1.jpg
     - assets/medico2.jpeg
     - assets/medico3.jpeg
+    - assets/medico4.jpeg
 
 
   # To add assets to your application, add an assets section, like this:
