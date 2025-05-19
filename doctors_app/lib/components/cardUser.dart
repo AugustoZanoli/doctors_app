@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:doctors_app/db/session.dart' as session;
 import 'package:doctors_app/main.dart';
 
 class CardUser extends StatefulWidget {
-  final String title;
-  final String route;
-  final String data;
-
-  const CardUser({
-    super.key,
-    required this.title,
-    required this.route,
-    required this.data,
-  });
+  const CardUser({super.key});
 
   @override
   State<CardUser> createState() => _CardUserState();
@@ -22,6 +14,8 @@ class _CardUserState extends State<CardUser> {
 
   @override
   Widget build(BuildContext context) {
+    final user = session.loggedUser!;
+
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       child: Card(
@@ -43,25 +37,38 @@ class _CardUserState extends State<CardUser> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.title,
-                      style: TextStyle(
+                      user.name,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
-                      isOpen ? 'Data de nascimento: ${widget.data}' : 'Data de nascimento: ************',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontSize: 14,
+                    const SizedBox(height: 6),
+                    AnimatedCrossFade(
+                      duration: const Duration(milliseconds: 300),
+                      crossFadeState: isOpen
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      firstChild: Text(
+                        'Nascimento: **********',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 14,
+                        ),
+                      ),
+                      secondChild: Text(
+                        'Nascimento: ${user.birthDate}',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],

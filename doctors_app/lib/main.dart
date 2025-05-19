@@ -2,7 +2,8 @@ import 'package:doctors_app/components/bottomNavigationBar.dart';
 import 'package:doctors_app/screens/consultas.dart';
 import 'package:doctors_app/screens/login/login.dart';
 import 'package:doctors_app/screens/novaConsulta.dart';
-import 'package:doctors_app/screens/profissionais.dart';
+import 'package:doctors_app/screens/profissional/profissionais.dart';
+import 'package:doctors_app/screens/profissional/profissionalDetails.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => MainLayout(),
           '/profissionais': (context) => Profissionais(),
           '/login' : (context) => LoginPage(),
+          '/profissionalDetails': (context) => ProfissionalDetails(),
         });
   }
 }

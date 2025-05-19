@@ -11,8 +11,6 @@ class Consultas extends StatefulWidget {
 }
 
 class _ConsultasState extends State<Consultas> {
-  
-
   int _selectedFilterIndex = 0; // 0 = Pendentes, 1 = Finalizados
 
   void _adicionarConsulta(Map<String, dynamic> novaConsulta) {
@@ -100,8 +98,7 @@ class _ConsultasState extends State<Consultas> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(Icons.calendar_today,
-                                        size: 60,
-                                        color: Colors.grey.shade400),
+                                        size: 60, color: Colors.grey.shade400),
                                     SizedBox(height: 12),
                                     Text(
                                       'Nenhuma consulta encontrada',
@@ -116,8 +113,8 @@ class _ConsultasState extends State<Consultas> {
                                 itemBuilder: (context, index) {
                                   final item = consultasFiltradas[index];
                                   return Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 8.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
                                     child: CardConsultas(
                                       title: item['title'],
                                       route: item['route'],

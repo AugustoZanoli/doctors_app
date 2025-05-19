@@ -69,68 +69,69 @@ class _ProfissionaisState extends State<Profissionais> {
     return Scaffold(
       appBar: MyAppBar(title: 'Profissionais'),
       body: Column(
-  children: [
-    if (filtroArea != null)
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            Text('Filtro: ', style: TextStyle(fontWeight: FontWeight.bold)),
-            Chip(
-              label: Text(filtroArea!),
-              deleteIcon: Icon(Icons.clear),
-              onDeleted: () {
-                setState(() {
-                  filtroArea = null;
-                });
-              },
-            ),
-          ],
-        ),
-      ),
-    Expanded(
-      child: profissionaisFiltrados.isEmpty
-          ? Center(child: Text('Nenhum profissional encontrado.'))
-          : isList
-              ? ListView.builder(
-                  itemCount: profissionaisFiltrados.length,
-                  itemBuilder: (context, index) {
-                    final item = profissionaisFiltrados[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Cardprofissionais(
-                        nome: item['nome'],
-                        area: item['area'],
-                        regiao: item['regiao'],
-                        foto: item['foto'],
-                      ),
-                    );
-                  },
-                )
-              : GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2,
-                    childAspectRatio: 1,
+        children: [
+          if (filtroArea != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Text('Filtro: ',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Chip(
+                    label: Text(filtroArea!),
+                    deleteIcon: Icon(Icons.clear),
+                    onDeleted: () {
+                      setState(() {
+                        filtroArea = null;
+                      });
+                    },
                   ),
-                  itemCount: profissionaisFiltrados.length,
-                  itemBuilder: (context, index) {
-                    final item = profissionaisFiltrados[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: CardGridProfissionais(
-                        nome: item['nome'],
-                        area: item['area'],
-                        regiao: item['regiao'],
+                ],
+              ),
+            ),
+          Expanded(
+            child: profissionaisFiltrados.isEmpty
+                ? Center(child: Text('Nenhum profissional encontrado.'))
+                : isList
+                    ? ListView.builder(
+                        itemCount: profissionaisFiltrados.length,
+                        itemBuilder: (context, index) {
+                          final item = profissionaisFiltrados[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Cardprofissionais(
+                              nome: item['nome'],
+                              area: item['area'],
+                              regiao: item['regiao'],
+                              foto: item['foto'],
+                              avaliacao: item['avaliacao'],
+                              descavaliacao: item['descavaliacao'],
+                              descricao: item['descricao'],
+                            ),
+                          );
+                        },
+                      )
+                    : ListView.builder(
+                        itemCount: profissionaisFiltrados.length,
+                        itemBuilder: (context, index) {
+                          final item = profissionaisFiltrados[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: CardGridProfissional(
+                              nome: item['nome'],
+                              area: item['area'],
+                              regiao: item['regiao'],
+                              foto: item['foto'],
+                              avaliacao: item['avaliacao'],
+                              descavaliacao: item['descavaliacao'],
+                              descricao: item['descricao'],
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-    ),
-  ],
-),
-
+          ),
+        ],
+      ),
       floatingActionButton: Stack(
         alignment: Alignment.bottomRight,
         children: [
@@ -154,7 +155,8 @@ class _ProfissionaisState extends State<Profissionais> {
               child: FloatingActionButton(
                 backgroundColor: customTeal,
                 mini: true,
-                child: Icon(isList ? Icons.grid_on : Icons.list, color: Colors.white),
+                child: Icon(isList ? Icons.grid_on : Icons.list,
+                    color: Colors.white),
                 onPressed: () {
                   setState(() {
                     isList = !isList;
