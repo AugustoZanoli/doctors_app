@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/novaconsulta': (context) => Novaconsulta(),
           '/home': (context) => MainLayout(),
           '/profissionais': (context) => Profissionais(),
+          '/login' : (context) => LoginPage(),
         });
   }
 }

@@ -154,7 +154,7 @@ class _ProfissionaisState extends State<Profissionais> {
               child: FloatingActionButton(
                 backgroundColor: customTeal,
                 mini: true,
-                child: Icon(Icons.grid_on, color: Colors.white),
+                child: Icon(isList ? Icons.grid_on : Icons.list, color: Colors.white),
                 onPressed: () {
                   setState(() {
                     isList = !isList;

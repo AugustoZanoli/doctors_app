@@ -19,14 +19,14 @@ List<Map<String, dynamic>> profissionais = [
   },
   {
     'nome': 'Fernanda Costa Lima',
-    'area': 'Dermatologista',
-    'regiao': 'Pouso Alegre',
+    'area': 'Dentista Cirurgião',
+    'regiao': 'Itajubá',
     'foto': 'assets/medico3.jpeg',
   },
   {
     'nome': 'Carlos Eduardo Silva',
     'area': 'Cardiologista',
-    'regiao': 'Santa Rita do Sapucaí',
+    'regiao': 'Itajubá',
     'foto': 'assets/medico3.jpeg',
   },
   {
@@ -37,14 +37,14 @@ List<Map<String, dynamic>> profissionais = [
   },
   {
     'nome': 'Rafael Torres Almeida',
-    'area': 'Ortopedista',
-    'regiao': 'Brasópolis',
+    'area': 'Dentista Cirurgião',
+    'regiao': 'Itajubá',
     'foto': 'assets/medico3.jpeg',
   },
   {
     'nome': 'Patrícia Gonçalves Martins',
     'area': 'Ginecologista',
-    'regiao': 'Maria da Fé',
+    'regiao': 'Itajubá',
     'foto': 'assets/medico3.jpeg',
   },
 ];

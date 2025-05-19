@@ -1,6 +1,7 @@
 import 'package:doctors_app/main.dart';
 import 'package:doctors_app/screens/consultas.dart';
 import 'package:doctors_app/screens/home.dart';
+import 'package:doctors_app/screens/perfil.dart';
 import 'package:flutter/material.dart';
 
 class MainLayout extends StatefulWidget {
@@ -14,7 +15,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _pages = [
     Home(),
     Consultas(),
-    Center(child: Text('Perfil')),
+    Perfil(),
   ];
 
   void _onItemTapped(int index) {

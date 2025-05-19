@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:doctors_app/main.dart';
 
-class CardUser extends StatelessWidget {
+class CardUser extends StatefulWidget {
   final String title;
   final String route;
   final String data;
 
   const CardUser({
+    super.key,
     required this.title,
     required this.route,
     required this.data,
   });
+
+  @override
+  State<CardUser> createState() => _CardUserState();
+}
+
+class _CardUserState extends State<CardUser> {
+  bool isOpen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,7 @@ class CardUser extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      widget.title,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -50,7 +58,7 @@ class CardUser extends StatelessWidget {
                     ),
                     SizedBox(height: 6),
                     Text(
-                      'Data de nascimento: 08/08/2004',
+                      isOpen ? 'Data de nascimento: ${widget.data}' : 'Data de nascimento: ************',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 14,
@@ -60,9 +68,14 @@ class CardUser extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                icon: Icon(
+                  isOpen ? Icons.visibility_off : Icons.visibility,
+                  color: Colors.white,
+                ),
                 onPressed: () {
-                  // Navigator.pushNamed(context, route);
+                  setState(() {
+                    isOpen = !isOpen;
+                  });
                 },
               ),
             ],
